@@ -1,0 +1,16 @@
+---
+- hosts: webserver
+  become: true
+  tasks:
+    - name: install apache2
+      apt: name=apache2 state=present update_cache=yes
+      with_i
+
+    - name: install apache2
+        apt: name=apache2 state=present update_cache=yes
+
+    - name: install apache2
+        apt: name=apache2 state=present update_cache=yes
+
+    - name: install apache2
+        apt: name=apache2 state=present update_cache=yes
