@@ -1,9 +1,0 @@
----
-- hosts: all
-  become: true
-  tasks:
-  - name: configure name servers
-    net_system:
-      name_servers:
-        - 8.8.8.8
-        - 8.8.4.4
