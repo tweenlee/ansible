@@ -2,7 +2,7 @@
 - hosts: webserver
   become: true
   tasks:
-    - name: install apache2
+    - name: install web components
       apt: name={{item}} state=present update_cache=yes
       with_items:
         - apache2
@@ -15,16 +15,17 @@
 
     - name: ensure mod_wsgi enabled
       apache2_module: state=present name=wsgi
+      notify: restart apache2
 
     - name: copy demo app source
       copy: src=../demo/app/ dest=/var/www/demo mode=0755
       notify: restart apache2
 
-    - name: copy apche virtual host config
+    - name: copy apache virtual host config
       copy: src=../demo/demo.conf dest=/etc/apache2/sites-available mode=0755
       notify: restart apache2
 
-    - name: seup python virtualenv
+    - name: setup python virtualenv
       pip: requirements=/var/www/demo/requirements.txt virtualenv=/var/www/demo/.venv
       notify: restart apache2
 
@@ -36,7 +37,6 @@
       file: src=/etc/apache2/sites-available/demo.conf dest=/etc/apache2/sites-enabled/demo.conf state=link
       notify: restart apache2
 
-  command:
   handlers:
     - name: restart apache2
       service: name=apache2 state=restarted
