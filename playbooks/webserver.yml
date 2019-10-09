@@ -37,6 +37,7 @@
       file: src=/etc/apache2/sites-available/demo.conf dest=/etc/apache2/sites-enabled/demo.conf state=link
       notify: restart apache2
 
+
   handlers:
     - name: restart apache2
       service: name=apache2 state=restarted
