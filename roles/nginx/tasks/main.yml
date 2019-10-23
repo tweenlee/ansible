@@ -22,6 +22,8 @@
   changed_when: "active.stdout_lines != sites.keys()"
   tags: ['configure']
 
+- debug: var=vars
+
 - name: de-activate sites
   file: path=/etc/nginx/sites-enabled/{{item}} state=absent
   with_items: "{{active.stdout_lines}}"
